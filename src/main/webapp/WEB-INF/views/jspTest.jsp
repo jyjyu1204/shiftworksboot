@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>jsp test</h1>
+    <h1>jsp test 페이지</h1>
 </body>
 </html>
