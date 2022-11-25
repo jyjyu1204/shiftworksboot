@@ -26,4 +26,6 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "rsc_id")
     private MeetingRoom meetingRoom;
+
+    //
 }
