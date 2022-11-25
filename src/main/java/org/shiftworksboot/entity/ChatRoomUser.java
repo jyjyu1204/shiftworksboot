@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "chatroom_user")
@@ -18,6 +15,7 @@ public class ChatRoomUser {
 
     @Id
     @ManyToOne
+    @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
 
 }
