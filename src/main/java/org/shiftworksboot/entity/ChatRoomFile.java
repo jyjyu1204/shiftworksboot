@@ -19,9 +19,4 @@ public class ChatRoomFile {
     private String file_name;
 
     private String file_src;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private ChatRoom chatRoom;
-
 }
