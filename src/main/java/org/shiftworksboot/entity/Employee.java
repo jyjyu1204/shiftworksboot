@@ -20,7 +20,6 @@ public class Employee {
     @JoinColumn(name = "dept_id")
     private Department department;
 
-    private String dept_id;
     private String password;
     private String name;
     private String address;
