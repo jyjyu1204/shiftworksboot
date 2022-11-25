@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "task")
 @Getter @Setter @ToString
-public class Task extends BaseEntity {
+public class Task{
 
     @Id
     @Column(name = "task_id")
@@ -23,10 +23,10 @@ public class Task extends BaseEntity {
     @Lob
     private String task_content;
 
-    @Column(name = "t_private", length = 1)
+    @Column(name = "t_private")
     private Character t_private;
 
-    @Column(name = "notification", length = 1)
+    @Column(name = "notification")
     private Character notification;
 
     @Enumerated(EnumType.STRING)
