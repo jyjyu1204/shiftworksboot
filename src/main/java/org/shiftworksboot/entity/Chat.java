@@ -23,7 +23,4 @@ public class Chat {
 
     private String sender;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private ChatRoom chatRoom;
 }
