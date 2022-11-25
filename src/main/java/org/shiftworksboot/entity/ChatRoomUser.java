@@ -14,8 +14,6 @@ import javax.persistence.*;
 public class ChatRoomUser {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private ChatRoom chatRoom;
+    private int chatRoomUser_id;
 
 }
