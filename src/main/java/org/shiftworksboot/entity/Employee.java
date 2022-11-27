@@ -60,35 +60,10 @@ public class Employee {
 
         employee.setPassword(password);
 
-
         return employee;
 
 
     }
-
-//    public static Employee createManager(EmployeeFormDto employeeFormDto,
-//                                          PasswordEncoder passwordEncoder){
-//        Employee manager = new Employee();
-//        manager.setEmp_id(employeeFormDto.getEmp_id());
-//        manager.setDepartment(employeeFormDto.getDept_name());
-//        String password = passwordEncoder.encode(employeeFormDto.getPassword());
-//        manager.setName(employeeFormDto.getName());
-//        manager.setAddress(employeeFormDto.getAddress());
-//        manager.setBirthday(employeeFormDto.getBirthday());
-//        manager.setPosition(employeeFormDto.getPosition());
-//        manager.setMobile(employeeFormDto.getMobile());
-//        manager.setInternal(employeeFormDto.getInternal());
-//        manager.setEmail(employeeFormDto.getEmail());
-//        manager.setEntry_date(employeeFormDto.getEntry_date());
-//        manager.setResignation_date(employeeFormDto.getResignation_date());
-//
-//        manager.setPassword(password);
-//        manager.setRole(Role.ADMIN);
-//
-//        return manager;
-//
-//
-//    }
 
 
 }

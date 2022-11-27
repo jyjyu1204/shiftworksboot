@@ -1,4 +1,5 @@
 package org.shiftworksboot.config;
+import org.shiftworksboot.service.EmployeeService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,9 +15,19 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    EmployeeService employeeService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        http.formLogin()
+                .loginPage("/customLogin")
+                .defaultSuccessUrl("/")
+                .usernameParameter("emp_id")
+                .failureUrl("/accessError")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/customLogout"))
+                .logoutSuccessUrl("/");
     }
 
     @Override
