@@ -1,5 +1,6 @@
 package org.shiftworksboot.config;
 import org.shiftworksboot.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,19 +16,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     EmployeeService employeeService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/customLogin")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/home")
                 .usernameParameter("emp_id")
                 .failureUrl("/accessError")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/customLogout"))
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/customLogin");
     }
 
     @Override
@@ -37,7 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(employeeService)
+                .passwordEncoder(passwordEncoder());
+    }
 }
