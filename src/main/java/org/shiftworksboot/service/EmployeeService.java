@@ -1,7 +1,7 @@
 package org.shiftworksboot.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.shiftworksboot.entity.Department;
 import org.shiftworksboot.entity.Employee;
 import org.shiftworksboot.repository.EmployeeRepository;
 import org.springframework.security.core.userdetails.User;
@@ -13,37 +13,36 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EmployeeService implements UserDetailsService {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     public Employee saveEmployee(Employee employee){
         validateDuplicateEmployee(employee);
-
         return employeeRepository.save(employee);
 
     }
 
     private void validateDuplicateEmployee(Employee employee){
-        Employee findEmployee = employeeRepository.findByEmp_id(employee.getEmp_id());
+        Employee findEmployee = employeeRepository.findByEmpId(employee.getEmpId());
         if(findEmployee != null){
             throw new IllegalStateException("이미 존재하는 사번입니다.");
         }
     }
 
     @Override
-    public UserDetails loadUserByUsername(String emp_id) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.findByEmp_id(emp_id);
+    public UserDetails loadUserByUsername(String empId) throws UsernameNotFoundException {
+        Employee employee = employeeRepository.findByEmpId(empId);
 
         if(employee == null){
-            throw new UsernameNotFoundException(emp_id);
+            throw new UsernameNotFoundException(empId);
         }
 
         return User.builder()
-                .username(employee.getEmp_id())
+                .username(employee.getEmpId())
                 .password(employee.getPassword())
-                .roles(employee.getDepartment().getAuthority().toString())
+                .roles(employee.getAuthority().toString())
                 .build();
     }
 }

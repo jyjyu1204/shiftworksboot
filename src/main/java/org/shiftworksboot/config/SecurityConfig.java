@@ -1,4 +1,5 @@
 package org.shiftworksboot.config;
+import lombok.AllArgsConstructor;
 import org.shiftworksboot.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,14 +24,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/customLogin")
-                .defaultSuccessUrl("/home")
-                .usernameParameter("emp_id")
-                .failureUrl("/accessError")
+                .loginPage("/users/login")
+                .defaultSuccessUrl("/")
+                .usernameParameter("empId")
+                .failureUrl("/users/login/error")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/customLogout"))
-                .logoutSuccessUrl("/customLogin");
+                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                .logoutSuccessUrl("/");
+
+
     }
 
     @Override

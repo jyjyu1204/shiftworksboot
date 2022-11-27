@@ -4,5 +4,5 @@ import org.shiftworksboot.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DepartmentRepository extends JpaRepository<Department, String> {
-    Department findByDept_id(String Dept_id);
+
 }
