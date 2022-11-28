@@ -43,7 +43,7 @@ public class TaskController {
     @PostMapping("/new")
     public ResponseEntity<String> insert(@RequestBody TaskFormDto taskFormDto) {
 
-        taskService.insertTask(taskFormDto);
+        taskService.saveTask(taskFormDto);
 
         return new ResponseEntity<String>("업무가 등록되었습니다.", HttpStatus.OK);
     }
@@ -51,7 +51,7 @@ public class TaskController {
     // 업무 목록 출력
     @GetMapping("/pages/{dept_id}/{type}/{keyword}/{pageNum}")
     public ModelAndView getList(@PathVariable String dept_id, @PathVariable String type,
-                                @PathVariable String keyword, @PathVariable Optional<Integer> pageNum) {
+                                @PathVariable String keyword, @PathVariable Integer pageNum) {
 
         TaskDto taskDto = new TaskDto();
 
@@ -70,17 +70,16 @@ public class TaskController {
         }
 
         // 페이징 처리를 위한 객체 생성
-        Pageable pageable = PageRequest.of(pageNum.isPresent() ? pageNum.get() : 0, 10);
+        Pageable pageable = PageRequest.of(--pageNum, 10);
 
-        log.info(pageNum.get().toString());
-
-        Page<Task> taskPages = taskRepository.getListWithPaging(taskDto, pageable);
-
+        Page<Task> tasks = taskRepository.getListWithPaging(taskDto, pageable);
 
         // view로 결과를 전달하기 위한 ModelAndView
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/task/TSK_list");
-        mav.addObject("list", taskPages.getContent());
+        mav.addObject("tasks", tasks.getContent());
+        mav.addObject("taskPage", tasks);
+        mav.addObject("totalPages", tasks.getTotalPages());
 
         return mav;
     }
@@ -92,12 +91,12 @@ public class TaskController {
                                 @PathVariable String keyword, @PathVariable Optional<Integer> pageNum,
                                 @PathVariable Integer task_id) {
 
+        // 선택 게시물 조회
         Task task = taskRepository.findById(task_id)
                 .orElseThrow(EntityNotFoundException::new);
 
+        // Task 객체를 DTO 객체로 변환
         TaskDto taskDto = new TaskDto(task);
-
-        log.info("조회 결과" + taskDto.toString());
 
         // view로 결과를 전달하기 위한 ModelAndView
         ModelAndView mav = new ModelAndView();
@@ -105,6 +104,23 @@ public class TaskController {
         mav.addObject("task", taskDto);
 
         return mav;
+    }
+
+
+    @PutMapping("/pages/{dept_id}/{type}/{keyword}/{pageNum}/{task_id}")
+    public ResponseEntity<String> updateTask(@PathVariable String dept_id, @PathVariable String type,
+                                             @PathVariable String keyword, @PathVariable Optional<Integer> pageNum,
+                                             @PathVariable Integer task_id, @RequestBody TaskFormDto taskFormDto) {
+
+
+        taskService.saveTask(taskFormDto);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{task_id}")
+    public ResponseEntity<String> deleteTask(@PathVariable Integer task_id) {
+
+        return new ResponseEntity<String>(taskService.deleteTask(task_id), HttpStatus.OK);
     }
 
 }

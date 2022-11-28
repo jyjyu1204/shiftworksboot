@@ -29,6 +29,8 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
     @Override
     public Page<Task> getListWithPaging(TaskDto taskDto, Pageable pageable) {
 
+        log.info("오프셋:" + pageable.getOffset());
+
         QTask qTask = QTask.task;
         List<Task> taskList = queryFactory
                 .selectFrom(qTask)
@@ -36,8 +38,8 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
                         searchContent(taskDto.getTask_content()),
                         selectDept(taskDto.getDept_id()))
                 .orderBy(QTask.task.task_id.desc())
-                /*.offset(pageable.getOffset())
-                .limit(pageable.getPageSize())*/
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
         return new PageImpl<Task>(taskList, pageable, taskList.size());

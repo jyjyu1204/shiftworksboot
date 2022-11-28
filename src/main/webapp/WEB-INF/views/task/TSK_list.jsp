@@ -8,7 +8,6 @@
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-<script type="text/javascript" src="/resources/js/task.js"></script>
 
 
 	<!-- JQuery 라이브러리 -->
@@ -24,6 +23,7 @@
 
 
 
+	<script type="text/javascript" src="/resources/js/task.js"></script>
 	<link rel="stylesheet" href="/resources/css/task.css">
 <meta charset="UTF-8">
 <title>업무 관리</title>
@@ -75,7 +75,7 @@
 				<td class="writer">작성자</td>
 				<td class="writer">비공개여부</td>
 			</tr>
-			<c:forEach items="${list}" var="task">
+			<c:forEach items="${tasks}" var="task">
 				<tr class="goDetail" id="${task.task_id}">
 					<td><c:out value="${task.task_id}"/></td>
 					<td><c:out value="${task.dept_id}"/></td>
@@ -85,28 +85,30 @@
 				</tr>
 			</c:forEach>
 		</tbody>
-		<%--<tfoot>
+		<tfoot>
 			<tr>
 				<td colspan="5">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<!-- 이전버튼 출력 -->
-							<c:if test="${ dto.prev }">
+							<c:if test="${ !taskPage.first }">
 								<li class="page-item"><a class="page-link prev" href="#">이전</a></li>
 							</c:if>
 							<!-- 검색조건에 맞는 게시글 총량에 따라 페이징처리 -->
-							<c:forEach begin="${ dto.startPage }" end="${ dto.endPage }" var="i">
-								<li class="page-item"><a class="page-link pageNum" href="#">${ i }</a></li>
+							<c:forEach begin="${ 1 }"
+							 			end="${ 3 }"
+									   var="i">
+								<li class="page-item"><a class="page-link pageNum" href="#">${ (i + 1) }</a></li>
 							</c:forEach>
 							<!-- 다음버튼 출력 -->
-							<c:if test="${ dto.next }">
+							<c:if test="${ !taskPage.last }">
 								<li class="page-item"><a class="page-link next" href="#">다음</a></li>
 							</c:if>
 						</ul>
 					</nav>
 				</td>
 			</tr>
-		</tfoot>--%>
+		</tfoot>
 	</table>
 	
 	</div>

@@ -15,11 +15,21 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public void insertTask(TaskFormDto taskFormDto) {
+    public void saveTask(TaskFormDto taskFormDto) {
 
         Task task = taskFormDto.createTask();
         taskRepository.save(task);
 
+    }
+
+    public String deleteTask(Integer task_id) {
+
+        if(task_id != null) {
+            taskRepository.deleteById(task_id);
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
 }

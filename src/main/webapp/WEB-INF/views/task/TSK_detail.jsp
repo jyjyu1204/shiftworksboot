@@ -9,8 +9,6 @@
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-<script type="text/javascript" src="/resources/js/task.js"></script>
-<link rel="stylesheet" href="/resources/css/task.css">
 
 
 	<!-- JQuery 라이브러리 -->
@@ -25,7 +23,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 
-
+	<script type="text/javascript" src="/resources/js/task.js"></script>
+<link rel="stylesheet" href="/resources/css/task.css">
 	<meta charset="UTF-8">
 <title>업무 관리</title>
 </head>
