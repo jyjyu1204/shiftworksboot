@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface TaskRepository extends JpaRepository<Task, Integer>,
-                                        QuerydslPredicateExecutor<Task>{
+                                        QuerydslPredicateExecutor<Task>,
+                                        TaskRepositoryCustom{
 
 
 

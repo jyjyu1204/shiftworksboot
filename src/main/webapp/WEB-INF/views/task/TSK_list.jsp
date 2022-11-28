@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/includes/header.jsp"%>
+<%--<%@ include file="/WEB-INF/views/includes/header.jsp"%>--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 			<tr>
 				<td colspan="5">
 					<div class="dropdown">
-						<button class="btn btn-outline-secondary dropdown-toggle selectedDept" type="button"
+						<%--<button class="btn btn-outline-secondary dropdown-toggle selectedDept" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false"
 							value='<c:out value="${ dto.cri.dept_id }"></c:out>'>
 							부서
@@ -32,7 +32,7 @@
 							<li><a class="dropdown-item dept" href="#">dept1</a></li>
 							<li><a class="dropdown-item dept" href="#">dept2</a></li>
 							<li><a class="dropdown-item dept" href="#">dept3</a></li>
-						</ul>
+						</ul>--%>
 						<button class="btn btn-outline-secondary dropdown-toggle searchType" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false" value="T">
 							제목</button>
@@ -60,17 +60,17 @@
 				<td class="writer">작성자</td>
 				<td class="writer">비공개여부</td>
 			</tr>
-			<c:forEach items="${dto.list}" var="task">
+			<c:forEach items="${list}" var="task">
 				<tr class="goDetail" id="${task.task_id}">
 					<td><c:out value="${task.task_id}"/></td>
-					<td><c:out value="${task.dept_name}"/></td>
+					<td><c:out value="${task.dept_id}"/></td>
 					<td><c:out value="${task.task_title}"/></td>
-					<td><c:out value="${task.name}"/></td>
+					<td>홍길동</td>
 					<td><c:out value="${task.t_private}"/></td>
 				</tr>
 			</c:forEach>
 		</tbody>
-		<tfoot>
+		<%--<tfoot>
 			<tr>
 				<td colspan="5">
 					<nav aria-label="Page navigation example">
@@ -91,7 +91,7 @@
 					</nav>
 				</td>
 			</tr>
-		</tfoot>
+		</tfoot>--%>
 	</table>
 	
 	</div>
@@ -102,14 +102,14 @@
 		
 		/* 부서 목록부분 변경 시 함께 변경하기 */
 		// 선택된 부서 존재 시 해당 항목으로 출력
-		if($('.selectedDept').val() == 'dept_1') {
-			$('.selectedDept').text('dept_1');
+		if($('.selectedDept').val() == 'dept1') {
+			$('.selectedDept').text('dept1');
 		}
-		if($('.selectedDept').val() == 'dept_2') {
-			$('.selectedDept').text('dept_2');
+		if($('.selectedDept').val() == 'dept2') {
+			$('.selectedDept').text('dept2');
 		}
-		if($('.selectedDept').val() == 'dept_3') {
-			$('.selectedDept').text('dept_3');
+		if($('.selectedDept').val() == 'dept3') {
+			$('.selectedDept').text('dept3');
 		}
 		
 		// model attribute 값을 이용하기 위해 변수에 저장
