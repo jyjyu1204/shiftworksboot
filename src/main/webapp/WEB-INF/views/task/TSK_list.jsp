@@ -95,8 +95,8 @@
 								<li class="page-item"><a class="page-link prev" href="#">이전</a></li>
 							</c:if>
 							<!-- 검색조건에 맞는 게시글 총량에 따라 페이징처리 -->
-							<c:forEach begin="${ 1 }"
-							 			end="${ 3 }"
+							<c:forEach begin="${ 0 }"
+							 			end="${ 2 }"
 									   var="i">
 								<li class="page-item"><a class="page-link pageNum" href="#">${ (i + 1) }</a></li>
 							</c:forEach>
