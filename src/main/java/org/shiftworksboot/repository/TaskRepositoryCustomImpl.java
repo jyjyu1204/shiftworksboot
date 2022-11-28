@@ -50,11 +50,13 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
 
     // 제목으로 검색
     private BooleanExpression searchTitle(String task_title) {
-        return StringUtils.hasText(task_title) ? QTask.task.task_title.eq(task_title) : null;
+        log.info(task_title);
+        return StringUtils.hasText(task_title) ? QTask.task.task_title.like("%"+task_title+"%") : null;
     }
     // 내용으로 검색
     private BooleanExpression searchContent(String task_content) {
-        return StringUtils.hasText(task_content) ? QTask.task.task_content.eq(task_content) : null;
+        log.info(task_content);
+        return StringUtils.hasText(task_content) ? QTask.task.task_content.like("%"+task_content+"%") : null;
     }
 
     // 부서별 출력
