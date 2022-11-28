@@ -157,7 +157,7 @@
 				// 객체 전달하여 DB에 저장 후 페이지 이동
 				taskService.insertTask(newTask, function(result){
 					// href 대신 replace 이용하여 히스토리 남지 않게 처리
-					location.replace("/task/pages/" + newTask.dept_id + "/empty/empty/1");
+					location.replace("/task/pages/" + newTask.dept_id.toLowerCase() + "/empty/empty/1");
 				});
 
 			}); // end submit click event

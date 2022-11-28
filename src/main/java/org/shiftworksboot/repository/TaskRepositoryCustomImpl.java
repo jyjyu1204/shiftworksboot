@@ -3,6 +3,7 @@ package org.shiftworksboot.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.java.Log;
 import org.shiftworksboot.constant.TaskDept;
 import org.shiftworksboot.dto.TaskDto;
 import org.shiftworksboot.entity.QTask;
@@ -16,6 +17,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Log
 public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
 
     private JPAQueryFactory queryFactory;
@@ -34,8 +36,8 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
                         searchContent(taskDto.getTask_content()),
                         selectDept(taskDto.getDept_id()))
                 .orderBy(QTask.task.task_id.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                /*.offset(pageable.getOffset())
+                .limit(pageable.getPageSize())*/
                 .fetch();
 
         return new PageImpl<Task>(taskList, pageable, taskList.size());

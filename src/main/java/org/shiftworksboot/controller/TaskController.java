@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,11 +55,9 @@ public class TaskController {
 
         TaskDto taskDto = new TaskDto();
 
-
         // 검색 조건 처리
         if(!dept_id.equals("all")) {
             dept_id = dept_id.toUpperCase();
-            log.info(dept_id);
             taskDto.setDept_id(TaskDept.valueOf(dept_id));
         } else {
             taskDto.setDept_id(null);
@@ -73,13 +72,37 @@ public class TaskController {
         // 페이징 처리를 위한 객체 생성
         Pageable pageable = PageRequest.of(pageNum.isPresent() ? pageNum.get() : 0, 10);
 
+        log.info(pageNum.get().toString());
+
         Page<Task> taskPages = taskRepository.getListWithPaging(taskDto, pageable);
 
 
-        // view로 전달하기 위한 ModelAndView
+        // view로 결과를 전달하기 위한 ModelAndView
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/task/TSK_list");
         mav.addObject("list", taskPages.getContent());
+
+        return mav;
+    }
+
+
+    // 업무 상세 보기
+    @GetMapping("/pages/{dept_id}/{type}/{keyword}/{pageNum}/{task_id}")
+    public ModelAndView getTask(@PathVariable String dept_id, @PathVariable String type,
+                                @PathVariable String keyword, @PathVariable Optional<Integer> pageNum,
+                                @PathVariable Integer task_id) {
+
+        Task task = taskRepository.findById(task_id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        TaskDto taskDto = new TaskDto(task);
+
+        log.info("조회 결과" + taskDto.toString());
+
+        // view로 결과를 전달하기 위한 ModelAndView
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/task/TSK_detail");
+        mav.addObject("task", taskDto);
 
         return mav;
     }
