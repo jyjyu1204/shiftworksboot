@@ -11,7 +11,8 @@
 <body>
 
 	<!-- 에러 메시지 출력 -->
-	<h1><c:out value="${ message }"/></h1>
+	<!-- <h1><c:out value="${ message }"/></h1> -->
+	<h1>로그인 에러, 뒤로 가서 다시 시도</h1>
 
 </body>
 </html>

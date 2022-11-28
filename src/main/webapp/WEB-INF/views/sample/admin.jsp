@@ -22,6 +22,6 @@
 	<p>principal: <sec:authentication property="principal"/></p>
 	<p>사용자: <sec:authentication property="principal.employee"/></p>
 	<p>사용자 아이디:<sec:authentication property="principal.username"/></p>
-	<p>사용자 권한: <sec:authentication property="principal.employee.authList"/></p>
+	<p>사용자 권한: <sec:authentication property="principal.employee.authority"/></p>
 </body>
 </html>

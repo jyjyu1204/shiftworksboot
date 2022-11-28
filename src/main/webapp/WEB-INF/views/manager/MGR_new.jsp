@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
  <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-	<%@include file="/WEB-INF/views/includes/header.jsp"%>
+	<%@include file="../includes/header.jsp"%>
 <html>
 
 <head></head>
@@ -72,7 +72,8 @@
 
 					<button type="submit" class="btn btn-default">등록</button>
 					<button type="reset" class="btn btn-default">초기화</button>
-					
+					<input type="hidden" name="${_csrf.parameterName}"
+						   value="${_csrf.token}" />
 				</form>
 			</div>
 				<!--  end panel-body -->
@@ -106,4 +107,4 @@ $(document).ready(function(e){
 </body>
 </html>
 
-<%@include file="/WEB-INF/views/includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>
